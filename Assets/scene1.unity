@@ -807,7 +807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6225dbdf6c022495d97161352132184e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTool: WORK
 --- !u!114 &1060351308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +927,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1104677303}
+--- !u!1 &1272242413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1272242415}
+  - 114: {fileID: 1272242414}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1272242414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272242413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7696221f0cbbc764498b26fbbf4228af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1272242415
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272242413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1313386295
 GameObject:
   m_ObjectHideFlags: 0
