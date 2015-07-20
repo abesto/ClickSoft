@@ -11,8 +11,7 @@ public class ThingController : MonoBehaviour {
 		}
 
 		protected bool IsHovered() {
-			RaycastHit hit;
-			return Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit) && controller.gameObject == hit.transform.gameObject;
+			return HoverUtil.Instance.IsHovered (controller.gameObject);
 		}
 
 		virtual protected void Enter() {}

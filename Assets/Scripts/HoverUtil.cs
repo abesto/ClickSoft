@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 // Do at most one ray-casting to the mouse per frame for detecting which object is hovered
@@ -16,7 +17,9 @@ public class HoverUtil : Singleton<HoverUtil> {
 
 	public GameObject hovered {
 		get {
-			if (!checkedThisFrame) {
+			if (EventSystem.current.IsPointerOverGameObject()) {
+				hoveredCache = null;
+			} else if (!checkedThisFrame) {
 				RaycastHit hit;
 				if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit)) {
 					hoveredCache = hit.transform.gameObject;
