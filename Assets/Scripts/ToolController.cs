@@ -10,13 +10,37 @@ public enum ToolName {
 	REMOVE_DEV
 }
 
-public abstract class Tool {}
+public abstract class Tool {
+	public abstract void Act (ThingController thing);
+}
+
+public class WorkTool: Tool {
+	override public void Act (ThingController thing) {
+		thing.progress += thing.progressOnClick;
+	}
+}
+
+public class NoopTool: Tool {
+	override public void Act (ThingController thing) {
+	}
+}
+
+public class ToolManager: Singleton<ToolManager> {
+	public Tool tool;
+}
 
 public class ToolController : MonoBehaviour {
-	private Tool tool;
-
 	public void ActivateTool(string name) {
-		Debug.LogFormat("Activated tool {0}", Enum.Parse (typeof(ToolName), name));
+		ToolName n = (ToolName) Enum.Parse (typeof(ToolName), name);
+		switch(n) {
+		case ToolName.WORK:
+			ToolManager.Instance.tool = new WorkTool();
+			break;
+		default:
+			ToolManager.Instance.tool = new NoopTool();
+			break;
+		}
+		Debug.LogFormat("Activated tool {0}", n);
 	}
 
 	void Start () {
