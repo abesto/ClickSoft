@@ -18,4 +18,13 @@ public class ApplicationManager : MonoBehaviour {
 		Application.LoadLevel("scene1");
 	}
 
+	public void Update ()
+	{
+		if (Input.GetAxis ("Cancel") > 0) {
+			if (Application.loadedLevelName != "menu") {
+				Application.LoadLevel("menu");
+			}
+		}
+	}
+
 }
