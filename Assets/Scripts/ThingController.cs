@@ -52,7 +52,7 @@ public class ThingController : MonoBehaviour {
 			if (!Input.GetMouseButtonDown (0)) {
 				return this;
 			}
-			controller.progress += controller.progressOnClick;
+			ToolManager.Instance.tool.Act (controller);
 			if (controller.IsDone ()) {
 				return new DoneState (controller);
 			} else {
@@ -83,7 +83,7 @@ public class ThingController : MonoBehaviour {
 	private ThingState state;
 
 	private byte _progress;
-	private byte progress {
+	public byte progress {
 		get { return _progress; }
 		set {
 			if (value > 100) {
