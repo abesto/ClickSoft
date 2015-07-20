@@ -12,36 +12,67 @@ public enum ToolName {
 
 public abstract class Tool {
 	public abstract void Act (ThingController thing);
+	public abstract ToolName name { get; }
 }
 
 public class WorkTool: Tool {
+	override public ToolName name {
+		get { return ToolName.WORK; }
+	}
+
 	override public void Act (ThingController thing) {
 		thing.progress += thing.progressOnClick;
 	}
 }
 
-public class NoopTool: Tool {
+public class AddDevTool: Tool {
+	override public ToolName name {
+		get { return ToolName.ADD_DEV; }
+	}
+
 	override public void Act (ThingController thing) {
+		Debug.LogFormat ("AddDevTool.Act not yet implemented");
 	}
 }
+
+public class RemoveDevTool: Tool {
+	override public ToolName name {
+		get { return ToolName.REMOVE_DEV; }
+	}
+	
+	override public void Act (ThingController thing) {
+		Debug.LogFormat ("RemoveDevTool.Act not yet implemented");
+	}
+}
+
 
 public class ToolManager: Singleton<ToolManager> {
 	public Tool tool;
-}
 
-public class ToolController : MonoBehaviour {
-	public void ActivateTool(string name) {
-		ToolName n = (ToolName) Enum.Parse (typeof(ToolName), name);
-		switch(n) {
+	public void ActivateTool(string strName) {
+		ToolName newName = (ToolName) Enum.Parse (typeof(ToolName), strName);
+		if (tool != null && newName == tool.name) {
+			return;
+		}
+		Debug.LogFormat("Activating tool {0} (replaces {1} as the active tool)", newName, (tool == null ? "nothing" : tool.name.ToString()));
+		switch(newName) {
 		case ToolName.WORK:
 			ToolManager.Instance.tool = new WorkTool();
 			break;
+		case ToolName.ADD_DEV:
+			ToolManager.Instance.tool = new AddDevTool();
+			break;
+		case ToolName.REMOVE_DEV:
+			ToolManager.Instance.tool = new RemoveDevTool();
+			break;
 		default:
-			ToolManager.Instance.tool = new NoopTool();
+			Debug.LogErrorFormat("Unknown tool name {0}", newName);
 			break;
 		}
-		Debug.LogFormat("Activated tool {0}", n);
 	}
+}
+
+public class ToolController : MonoBehaviour {
 
 	void Start () {
 		foreach (Toggle _toggle in GetComponentsInChildren<Toggle>()) {
@@ -49,14 +80,12 @@ public class ToolController : MonoBehaviour {
 			Debug.LogFormat ("Found tool {0} in toolbar", toggle.name);
 			toggle.onValueChanged.AddListener((activated) => {
 				if (activated) {
-					ActivateTool(toggle.name);
-				} else {
-					Debug.LogFormat("Deactivated tool {0}", Enum.Parse (typeof(ToolName), toggle.name));
+					ToolManager.Instance.ActivateTool(toggle.name);
 				}
 			});
 			if (toggle.isOn) {
-				Debug.LogFormat ("Toggle for tool {0} is on, activating", toggle.name);
-				ActivateTool(toggle.name);
+				Debug.LogFormat ("UI Toggle for tool {0} is on at startup, activating", toggle.name);
+				ToolManager.Instance.ActivateTool(toggle.name);
 			}
 		}
 	}
