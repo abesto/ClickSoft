@@ -22,6 +22,11 @@ public class WorkTool: Tool {
 
 	override public void Act (ThingController thing) {
 		thing.progress += thing.progressOnClick;
+		thing.GetComponentInParent<FloatingTextGenerator>().CreateAndStart (
+			thing.gameObject,
+			CommitMessages.GetRandom(),
+			3f
+		);
 	}
 }
 

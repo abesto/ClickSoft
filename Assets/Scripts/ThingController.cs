@@ -142,12 +142,14 @@ public class ThingController : MonoBehaviour {
 		thing = GetComponent<MeshRenderer> ();
 		// Initialize "Done" sparks
 		myDoneSparks = Instantiate (prefabDoneSparks, transform.position, transform.rotation) as ParticleSystem;
+		myDoneSparks.name = "DoneSparks";
 		myDoneSparks.transform.SetParent (transform);
 		myDoneSparks.transform.localScale = new Vector3 (1, 1, 1);
 		// Initialize Progress text
 		progressTextMesh = Instantiate (prefabProgressText, transform.position, prefabProgressText.transform.rotation) as TextMesh;
+		progressTextMesh.name = "ProgressText";
 		progressTextMesh.transform.SetParent (transform);
-		progressTextMesh.transform.Translate (Vector3.up * transform.localScale.z / 2, Space.World);
+		progressTextMesh.transform.Translate (Vector3.up * GetComponent<MeshRenderer>().bounds.extents.y, Space.World);
 		// Set initial progress
 		progress = initialProgress;
 		initialColor = color;

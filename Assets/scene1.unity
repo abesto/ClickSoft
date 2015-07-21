@@ -974,6 +974,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 918576860}
+  - 114: {fileID: 918576861}
   m_Layer: 0
   m_Name: Blueprint
   m_TagString: Untagged
@@ -998,6 +999,19 @@ Transform:
   - {fileID: 1432631848}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &918576861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 918576859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffb588ed3e684b06aff48ca2edc1f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPrefab: {fileID: 198260, guid: 63e39dae37a7b4c1ba6323784960f0f6, type: 2}
+  scrollPerFrame: .00999999978
 --- !u!1 &984058443
 GameObject:
   m_ObjectHideFlags: 0
