@@ -38,7 +38,7 @@ class HighlightedState: ThingState {
 	public HighlightedState(ThingController controller): base(controller) {}
 	
 	override protected void Enter() {
-		controller.color = Color.cyan;
+		controller.colorPreservingAlpha = Color.cyan;
 		controller.progressTextColor = Color.cyan;
 	}
 	
@@ -88,7 +88,7 @@ public class ThingController : MonoBehaviour {
 				value = 100;
 			}
 			_progress = value;
-			alpha = value / 100f;
+			alpha = (float)(value) / 100f;
 			progressText = value;
 		}
 	}
@@ -109,8 +109,14 @@ public class ThingController : MonoBehaviour {
 	public Color color {
 		get { return thing.materials [0].color; }
 		set { 
-			value.a = color.a;
 			thing.materials [0].color = value; 
+		}
+	}
+
+	public Color colorPreservingAlpha {
+		set { 
+			value.a = color.a;
+			color = value;
 		}
 	}
 
