@@ -10,7 +10,7 @@ public class FloatingTextGenerator : MonoBehaviour {
 		TextMesh tm = text.GetComponent<TextMesh> ();
 		tm.text = str;
 		text.transform.SetParent (floatAbove.transform);	
-		text.transform.Translate (Vector3.up * floatAbove.transform.localScale.z / 2 + 
+		text.transform.Translate (Vector3.up * floatAbove.transform.localScale.y / 2 + 
 		                          Vector3.up * floatAbove.transform.Find ("ProgressText").GetComponent<MeshRenderer>().bounds.size.y,
 		                          Space.World);
 		tm.name = "(Floating text) " + str;

@@ -141,10 +141,10 @@ public class ThingController : MonoBehaviour {
 	void Start () {
 		thing = GetComponent<MeshRenderer> ();
 		// Initialize "Done" sparks
-		myDoneSparks = Instantiate (prefabDoneSparks, transform.position, transform.rotation) as ParticleSystem;
+		myDoneSparks = Instantiate (prefabDoneSparks, transform.position, prefabDoneSparks.transform.rotation) as ParticleSystem;
 		myDoneSparks.name = "DoneSparks";
 		myDoneSparks.transform.SetParent (transform);
-		myDoneSparks.transform.localScale = new Vector3 (1, 1, 1);
+		myDoneSparks.transform.Translate (Vector3.up * GetComponent<MeshRenderer>().bounds.extents.y, Space.World);
 		// Initialize Progress text
 		progressTextMesh = Instantiate (prefabProgressText, transform.position, prefabProgressText.transform.rotation) as TextMesh;
 		progressTextMesh.name = "ProgressText";
