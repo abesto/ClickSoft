@@ -117,7 +117,7 @@ RectTransform:
   - {fileID: 314265327}
   - {fileID: 481383473}
   m_Father: {fileID: 448946240}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -580,7 +580,7 @@ RectTransform:
   - {fileID: 1914925008}
   - {fileID: 215090239}
   m_Father: {fileID: 448946240}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 80, y: 0}
@@ -658,6 +658,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1779945159}
   - {fileID: 6177778}
   - {fileID: 390293800}
   - {fileID: 1937123776}
@@ -1418,6 +1419,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1779945159}
+  - 114: {fileID: 1779945160}
   m_Layer: 0
   m_Name: WorkForce
   m_TagString: WorkForce
@@ -1435,8 +1437,20 @@ Transform:
   m_LocalPosition: {x: 574, y: 267.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 448946240}
+  m_RootOrder: 0
+--- !u!114 &1779945160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779945158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801e6fbcf133ee04d8ccf4f8ed1bcdbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  developer: {fileID: 164682, guid: 1ca4321a7c75eb345a17ae7bd02c6bae, type: 2}
 --- !u!1 &1914925007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1616,7 @@ RectTransform:
   - {fileID: 512303209}
   - {fileID: 610419766}
   m_Father: {fileID: 448946240}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 160, y: 0}

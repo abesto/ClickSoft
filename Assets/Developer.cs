@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Developer : MonoBehaviour
@@ -10,7 +11,9 @@ public class Developer : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Debug.Log ("Developer created");
+		efficiency = Random.value * 0.004f;
+		Debug.Log (string.Format("Developer created with {0} efficiency", efficiency.ToString()));
+		transform.Find ("Efficiency").GetComponent<Text> ().text = efficiency.ToString ();
 	}
 	
 	// Update is called once per frame

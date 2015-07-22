@@ -32,8 +32,7 @@ public class AddDevTool: Tool {
 
 	override public void Act (ThingController thing) {
 		GameObject workForce = GameObject.FindGameObjectWithTag ("WorkForce");
-		Developer newDev = workForce.AddComponent<Developer> ();
-		newDev.target = thing;
+		workForce.GetComponent<WorkForceController> ().addDeveloper (thing);
 	}
 }
 
