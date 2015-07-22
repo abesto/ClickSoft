@@ -138,6 +138,11 @@ public class ThingController : MonoBehaviour {
 		myDoneSparks.Play ();
 	}
 
+	public void commitWork() {
+		this.progress += this.progressOnClick;
+		this.GetComponentInParent<FloatingTextGenerator> ().CreateAndStart (this.gameObject, CommitMessages.GetRandom (), 3f);
+	}
+
 	void Start () {
 		thing = GetComponent<MeshRenderer> ();
 		// Initialize "Done" sparks

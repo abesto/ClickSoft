@@ -1410,6 +1410,33 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 413780, guid: e979891e8db304eb48cb5b69125eabe6, type: 2}
   m_PrefabInternal: {fileID: 266103325}
+--- !u!1 &1779945158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1779945159}
+  m_Layer: 0
+  m_Name: WorkForce
+  m_TagString: WorkForce
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1779945159
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779945158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 574, y: 267.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1914925007
 GameObject:
   m_ObjectHideFlags: 0

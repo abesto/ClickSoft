@@ -21,12 +21,7 @@ public class WorkTool: Tool {
 	}
 
 	override public void Act (ThingController thing) {
-		thing.progress += thing.progressOnClick;
-		thing.GetComponentInParent<FloatingTextGenerator>().CreateAndStart (
-			thing.gameObject,
-			CommitMessages.GetRandom(),
-			3f
-		);
+		thing.commitWork ();
 	}
 }
 
@@ -36,7 +31,9 @@ public class AddDevTool: Tool {
 	}
 
 	override public void Act (ThingController thing) {
-		Debug.LogFormat ("AddDevTool.Act not yet implemented");
+		GameObject workForce = GameObject.FindGameObjectWithTag ("WorkForce");
+		Developer newDev = workForce.AddComponent<Developer> ();
+		newDev.target = thing;
 	}
 }
 
@@ -46,7 +43,13 @@ public class RemoveDevTool: Tool {
 	}
 	
 	override public void Act (ThingController thing) {
-		Debug.LogFormat ("RemoveDevTool.Act not yet implemented");
+		GameObject workForce = GameObject.FindGameObjectWithTag ("WorkForce");
+		foreach (Developer dev in workForce.GetComponents<Developer>()) {
+			if (dev.target == thing) {
+				dev.target = null;
+				return;
+			}
+		}
 	}
 }
 
