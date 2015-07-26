@@ -30,7 +30,6 @@ public class CameraController : MonoBehaviour {
 		transform.Translate (target * cameraVelocity * Time.deltaTime, Space.World);
 
 		GameObject background = GameObject.FindGameObjectWithTag ("Background");
-		Ray ray = new Ray (transform.position, background.transform.position - transform.position);
 		RaycastHit hitInfo = new RaycastHit();
 		if (Physics.Raycast (transform.position, background.transform.position - transform.position , out hitInfo, 100f)) {
 			transform.RotateAround(hitInfo.point, background.transform.up, Input.GetAxis("Circular"));

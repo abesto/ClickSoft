@@ -17,7 +17,7 @@ public class WorkForceController : MonoBehaviour {
 
 	public void addDeveloper (ThingController thing) {
 		GameObject newDev = Instantiate (developer);
-		newDev.transform.parent = transform;
+		newDev.transform.SetParent (transform, true);
 		newDev.GetComponent<Developer> ().target = thing;
 	}
 }
