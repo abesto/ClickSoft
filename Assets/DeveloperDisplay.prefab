@@ -27,6 +27,7 @@ GameObject:
   - 224: {fileID: 22410190}
   - 222: {fileID: 22295842}
   - 114: {fileID: 11430458}
+  - 114: {fileID: 11455676}
   m_Layer: 5
   m_Name: DeveloperDisplay
   m_TagString: Untagged
@@ -124,6 +125,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0.33
+--- !u!114 &11455676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebea86533f370f54bb2f5715b2cec2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  efficiency: .00200000009
+  target: {fileID: 0}
 --- !u!222 &22230402
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -150,13 +164,13 @@ RectTransform:
   m_GameObject: {fileID: 107858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410190}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -13, y: -75}
+  m_AnchoredPosition: {x: -3, y: -31}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22410190
@@ -167,7 +181,7 @@ RectTransform:
   m_GameObject: {fileID: 164682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .105468571, y: .0998961404, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22409806}
   - {fileID: 22420694}
@@ -175,8 +189,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 574, y: 267.5}
-  m_SizeDelta: {x: 1148, y: 535}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22420694
 RectTransform:
@@ -186,13 +200,13 @@ RectTransform:
   m_GameObject: {fileID: 186916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410190}
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -23, y: 179}
+  m_AnchoredPosition: {x: -2, y: 21}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
