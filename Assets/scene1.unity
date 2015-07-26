@@ -503,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6377fbf62badb46868ffc31d7693ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraVelocity: 10
 --- !u!1001 &348094061
 Prefab:
   m_ObjectHideFlags: 0
@@ -1709,7 +1708,7 @@ GameObject:
   - 23: {fileID: 2007638796}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
