@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
-public class Developer : MonoBehaviour
+public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
 	public float efficiency = 0.002f;
@@ -23,6 +24,20 @@ public class Developer : MonoBehaviour
 			if (Random.value <= efficiency) {
 				target.commitWork ();
 			}
+		}
+	}
+
+	public void OnPointerEnter (PointerEventData eventData)
+	{
+		if (target != null) {
+			target.menuHighlight = true;
+		}
+	}
+
+	public void OnPointerExit (PointerEventData eventData)
+	{
+		if (target != null) {
+			target.menuHighlight = false;
 		}
 	}
 }

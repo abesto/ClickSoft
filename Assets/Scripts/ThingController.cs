@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 abstract class ThingState {
@@ -8,53 +9,35 @@ abstract class ThingState {
 		Enter ();  // Not nice having this here, but this is a throw-away state machine, so it's fine
 	}
 	
-	protected bool IsHovered() {
-		return HoverUtil.Instance.IsHovered (controller.gameObject);
+	virtual protected void Enter() {
+		controller.progressTextColor = ProgressTextColor ();
+		controller.color = Color ();
 	}
 	
-	virtual protected void Enter() {}
-	
 	virtual public ThingState Act() { return this; }
+	abstract public Color ProgressTextColor ();
+	abstract public Color Color ();
 }
 
 class NormalState: ThingState {
 	public NormalState(ThingController controller): base(controller) {}
 	
-	override protected void Enter() {
-		controller.ResetColor ();
-		controller.progressTextColor = Color.white;
-	}
-	
 	override public ThingState Act () {
-		if (IsHovered()) {
-			return new HighlightedState (controller);
-		} else {
-			return this;
-		}
-	}
-}
-
-class HighlightedState: ThingState {
-	public HighlightedState(ThingController controller): base(controller) {}
-	
-	override protected void Enter() {
-		controller.colorPreservingAlpha = Color.cyan;
-		controller.progressTextColor = Color.cyan;
-	}
-	
-	override public ThingState Act () {
-		if (!IsHovered()) {
-			return new NormalState (controller);
-		}
-		if (!Input.GetMouseButtonDown (0)) {
-			return this;
-		}
-		ToolManager.Instance.tool.Act (controller);
 		if (controller.done) {
 			return new DoneState (controller);
 		} else {
 			return this;
 		}
+	}
+
+	public override UnityEngine.Color ProgressTextColor ()
+	{
+		return UnityEngine.Color.white;
+	}
+
+	public override UnityEngine.Color Color ()
+	{
+		return UnityEngine.Color.blue;
 	}
 }
 
@@ -62,13 +45,22 @@ class DoneState: ThingState {
 	public DoneState(ThingController controller): base(controller) {}
 	
 	override protected void Enter() {
-		controller.color = Color.green;
-		controller.progressTextColor = Color.green;
 		controller.EmitDoneParticles ();
+		base.Enter ();
+	}
+
+	public override UnityEngine.Color ProgressTextColor ()
+	{
+		return UnityEngine.Color.green;
+	}
+
+	public override UnityEngine.Color Color ()
+	{
+		return UnityEngine.Color.green;
 	}
 }
 
-public class ThingController : MonoBehaviour {	
+public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {	
 	public ParticleSystem prefabDoneSparks;
 	public TextMesh prefabProgressText;
 	public byte progressOnClick = 10;
@@ -79,6 +71,9 @@ public class ThingController : MonoBehaviour {
 	private MeshRenderer thing;
 	private Color initialColor;
 	private ThingState state;
+
+	public bool mouseHighlight = false;
+	public bool menuHighlight = false;
 
 	private byte _progress;
 	public byte progress {
@@ -163,5 +158,31 @@ public class ThingController : MonoBehaviour {
 
 	void Update () {
 		state = state.Act ();
+		updateHighlight ();
+	}
+
+	void updateHighlight () {
+		if (mouseHighlight || menuHighlight) {
+			colorPreservingAlpha = Color.cyan;
+			progressTextColor = Color.cyan;
+		} else {
+			color = state.Color();
+			progressTextColor = state.ProgressTextColor();
+		}
+	}
+
+	public void OnPointerClick (PointerEventData eventData)
+	{
+		ToolManager.Instance.tool.Act (this);
+	}
+
+	public void OnPointerEnter (PointerEventData eventData)
+	{
+		mouseHighlight = true;
+	}
+
+	public void OnPointerExit (PointerEventData eventData)
+	{
+		mouseHighlight = false;
 	}
 }
