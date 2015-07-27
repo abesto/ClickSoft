@@ -134,6 +134,9 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	}
 
 	public void commitWork() {
+		if (done) {
+			return;
+		}
 		this.progress += this.progressOnClick;
 		this.GetComponentInParent<FloatingTextGenerator> ().CreateAndStart (this.gameObject, CommitMessages.GetRandom (), 3f);
 	}
