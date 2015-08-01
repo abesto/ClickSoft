@@ -43,7 +43,7 @@ public class RemoveDevTool: Tool {
 	
 	override public void Act (ThingController thing) {
 		GameObject workForce = GameObject.FindGameObjectWithTag ("WorkForce");
-		foreach (Developer dev in workForce.GetComponents<Developer>()) {
+		foreach (Developer dev in workForce.GetComponentsInChildren<Developer>()) {
 			if (dev.target == thing) {
 				dev.target = null;
 				return;
