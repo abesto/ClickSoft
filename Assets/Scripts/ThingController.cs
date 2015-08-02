@@ -60,7 +60,7 @@ class DoneState: ThingState {
 	}
 }
 
-public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {	
+public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IHighlightable {	
 	public ParticleSystem prefabDoneSparks;
 	public TextMesh prefabProgressText;
 	public byte progressOnClick = 10;
@@ -72,8 +72,7 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private Color initialColor;
 	private ThingState state;
 
-	public bool mouseHighlight = false;
-	public bool menuHighlight = false;
+	public ThingHighlighter highlighter;
 
 	private byte _progress;
 	public byte progress {
@@ -139,10 +138,12 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		}
 		this.progress += this.progressOnClick;
 		this.GetComponentInParent<FloatingTextGenerator> ().CreateAndStart (this.gameObject, CommitMessages.GetRandom (), 3f);
+		this.UpdateState ();
 	}
 
 	void Start () {
 		thing = GetComponent<MeshRenderer> ();
+		highlighter = GetComponent<ThingHighlighter> ();
 		// Initialize "Done" sparks
 		myDoneSparks = Instantiate (prefabDoneSparks, transform.position, prefabDoneSparks.transform.rotation) as ParticleSystem;
 		myDoneSparks.name = "DoneSparks";
@@ -159,19 +160,22 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		state = new NormalState (this);
 	}
 
-	void Update () {
-		state = state.Act ();
-		updateHighlight ();
+	private void UpdateState () {
+		ThingState next = state.Act ();
+		if (next != state) {
+			Debug.LogFormat ("{0}: {1} -> {2}", name, state.GetType ().Name, next, GetType ().Name);
+			state = state.Act ();
+		}
+	}
+	
+	public void OnHighlight() {
+		colorPreservingAlpha = Color.cyan;
+		progressTextColor = Color.cyan;
 	}
 
-	void updateHighlight () {
-		if (mouseHighlight || menuHighlight) {
-			colorPreservingAlpha = Color.cyan;
-			progressTextColor = Color.cyan;
-		} else {
-			color = state.Color();
-			progressTextColor = state.ProgressTextColor();
-		}
+	public void OnDehighlight() {
+		color = state.Color();
+		progressTextColor = state.ProgressTextColor();
 	}
 
 	public void OnPointerClick (PointerEventData eventData)
@@ -181,11 +185,11 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-		mouseHighlight = true;
+		highlighter.On (ThingHighlightSource.MOUSE);
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		mouseHighlight = false;
+		highlighter.Off (ThingHighlightSource.MOUSE);
 	}
 }

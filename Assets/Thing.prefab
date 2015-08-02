@@ -12,6 +12,7 @@ GameObject:
   - 65: {fileID: 6558664}
   - 23: {fileID: 2324908}
   - 114: {fileID: 11400682}
+  - 114: {fileID: 11445304}
   m_Layer: 0
   m_Name: Thing
   m_TagString: Untagged
@@ -87,8 +88,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabDoneSparks: {fileID: 19871470, guid: 5c818c726b1244d4f97e904c01ffc7f9, type: 2}
   prefabProgressText: {fileID: 10289820, guid: 41dd0047565a1478c9552df798bc73ab, type: 2}
-  progressOnClick: 10
-  initialProgress: 10
+  progressOnClick: 3
+  initialProgress: 60
+  highlighter: {fileID: 0}
+--- !u!114 &11445304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb19f659fd9a42dd9a4b0129ffb31d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHighlighted: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
