@@ -30,14 +30,14 @@ public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 	public void OnPointerEnter (PointerEventData eventData)
 	{
 		if (target != null) {
-			target.menuHighlight = true;
+			target.highlighter.On(ThingHighlightSource.MENU);
 		}
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
 		if (target != null) {
-			target.menuHighlight = false;
+			target.highlighter.Off(ThingHighlightSource.MENU);
 		}
 	}
 }
