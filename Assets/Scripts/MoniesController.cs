@@ -13,7 +13,7 @@ public class MoniesController : Singleton<MoniesController> {
 	public float deltaCash = -2f;  // Let's build more advanced delta management (different timers, ...) later
 
 	protected void UpdateUI() {
-		moniesText.text = "$" + cash.ToString ();
+		moniesText.text = cash.ToString ("$0.00");
 
 		if (deltaCash >= 0) {
 			deltaMoniesText.text = "+";
@@ -22,7 +22,7 @@ public class MoniesController : Singleton<MoniesController> {
 			deltaMoniesText.text = "";
 			deltaMoniesText.color = Color.red;
 		}
-		deltaMoniesText.text += deltaCash.ToString ();
+		deltaMoniesText.text += deltaCash.ToString ("0.00");
 	}
 
 	void Start() {
