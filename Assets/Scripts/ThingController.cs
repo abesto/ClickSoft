@@ -138,6 +138,7 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		}
 		this.progress += this.progressOnClick;
 		this.GetComponentInParent<FloatingTextGenerator> ().CreateAndStart (this.gameObject, CommitMessages.GetRandom (), 3f);
+		this.UpdateState ();
 	}
 
 	void Start () {
@@ -159,7 +160,7 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		state = new NormalState (this);
 	}
 
-	void Update () {
+	private void UpdateState () {
 		ThingState next = state.Act ();
 		if (next != state) {
 			Debug.LogFormat ("{0}: {1} -> {2}", name, state.GetType ().Name, next, GetType ().Name);
