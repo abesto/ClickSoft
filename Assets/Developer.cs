@@ -15,6 +15,7 @@ public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 		efficiency = Random.value * 0.004f;
 		Debug.Log (string.Format("Developer created with {0} efficiency", efficiency.ToString()));
 		transform.Find ("Efficiency").GetComponent<Text> ().text = efficiency.ToString ();
+		MoniesController.Instance.deltaCash -= efficiency * 100;
 	}
 	
 	// Update is called once per frame
