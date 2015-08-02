@@ -15,7 +15,13 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private Color initialColor;
 	private ThingState state;
 
-	public ThingHighlighter highlighter;
+	protected ThingHighlighter highlighter;
+	public void HighlightOn(ThingHighlightSource source) {
+		highlighter.On (source);
+	}
+	public void HighlightOff(ThingHighlightSource source) {
+		highlighter.Off (source);
+	}
 
 	private byte _progress;
 	public byte progress {
