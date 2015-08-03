@@ -1,64 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 using System.Collections;
-
-abstract class ThingState {
-	protected ThingController controller;
-	public ThingState(ThingController controller) {
-		this.controller = controller;
-		Enter ();  // Not nice having this here, but this is a throw-away state machine, so it's fine
-	}
-	
-	virtual protected void Enter() {
-		controller.progressTextColor = ProgressTextColor ();
-		controller.color = Color ();
-	}
-	
-	virtual public ThingState Act() { return this; }
-	abstract public Color ProgressTextColor ();
-	abstract public Color Color ();
-}
-
-class NormalState: ThingState {
-	public NormalState(ThingController controller): base(controller) {}
-	
-	override public ThingState Act () {
-		if (controller.done) {
-			return new DoneState (controller);
-		} else {
-			return this;
-		}
-	}
-
-	public override UnityEngine.Color ProgressTextColor ()
-	{
-		return UnityEngine.Color.white;
-	}
-
-	public override UnityEngine.Color Color ()
-	{
-		return UnityEngine.Color.blue;
-	}
-}
-
-class DoneState: ThingState {
-	public DoneState(ThingController controller): base(controller) {}
-	
-	override protected void Enter() {
-		controller.EmitDoneParticles ();
-		base.Enter ();
-	}
-
-	public override UnityEngine.Color ProgressTextColor ()
-	{
-		return UnityEngine.Color.green;
-	}
-
-	public override UnityEngine.Color Color ()
-	{
-		return UnityEngine.Color.green;
-	}
-}
 
 public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IHighlightable {	
 	public ParticleSystem prefabDoneSparks;
@@ -72,7 +15,13 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private Color initialColor;
 	private ThingState state;
 
-	public ThingHighlighter highlighter;
+	protected ThingHighlighter highlighter;
+	public void HighlightOn(ThingHighlightSource source) {
+		highlighter.On (source);
+	}
+	public void HighlightOff(ThingHighlightSource source) {
+		highlighter.Off (source);
+	}
 
 	private byte _progress;
 	public byte progress {
@@ -81,11 +30,17 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			if (value > 100) {
 				value = 100;
 			}
+			byte before = _progress;
 			_progress = value;
 			alpha = (float)(value) / 100f;
 			progressText = value;
+			if (ProgressChanged != null) {
+				ProgressChanged (this, new ProgressEventArgs (before, value));
+			}
 		}
 	}
+
+	public event EventHandler<ProgressEventArgs> ProgressChanged;
 		
 	private int progressText {
 		set { progressTextMesh.text = value.ToString() + "%"; }
@@ -191,5 +146,16 @@ public class ThingController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public void OnPointerExit (PointerEventData eventData)
 	{
 		highlighter.Off (ThingHighlightSource.MOUSE);
+	}
+}
+
+public class ProgressEventArgs : EventArgs
+{
+	public byte before;
+	public byte after;
+
+	public ProgressEventArgs(byte before, byte after) {
+		this.before = before;
+		this.after = after;
 	}
 }

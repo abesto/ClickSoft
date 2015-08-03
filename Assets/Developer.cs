@@ -15,6 +15,7 @@ public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 		efficiency = Random.value * 0.004f;
 		Debug.Log (string.Format("Developer created with {0} efficiency", efficiency.ToString()));
 		transform.Find ("Efficiency").GetComponent<Text> ().text = efficiency.ToString ();
+		MoniesController.Instance.deltaCash -= efficiency * 100;
 	}
 	
 	// Update is called once per frame
@@ -30,14 +31,14 @@ public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 	public void OnPointerEnter (PointerEventData eventData)
 	{
 		if (target != null) {
-			target.highlighter.On(ThingHighlightSource.MENU);
+			target.HighlightOn(ThingHighlightSource.MENU);
 		}
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
 		if (target != null) {
-			target.highlighter.Off(ThingHighlightSource.MENU);
+			target.HighlightOff(ThingHighlightSource.MENU);
 		}
 	}
 }
