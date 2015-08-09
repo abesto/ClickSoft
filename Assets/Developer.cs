@@ -6,21 +6,27 @@ using System.Collections;
 public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-    const float MIN_COMMITS_PER_SECOND = 0.01f;
-    const float MAX_COMMITS_PER_SECOND = 2f;
-    public float commitsPerSecond = 0.5f;
+    const float MIN_COMMITS_PER_DAY = 0.1f;
+    const float MAX_COMMITS_PER_DAY = 6f;
+    float commitsPerSecond = 0.5f;
 	public ThingController target = null;
   float timeSinceLastWork = 0f;
     float nextCommit = 0f;
 
+	public float commitsPerDay {
+		get {
+            return (float)System.Math.Round(commitsPerSecond * GameTime.SECONDS_PER_DAY, 1);
+        }
+	}
+
     // Use this for initialization
     void Start ()
 	{
-		commitsPerSecond = Random.Range(MIN_COMMITS_PER_SECOND, MAX_COMMITS_PER_SECOND);
+		commitsPerSecond = Random.Range(MIN_COMMITS_PER_DAY, MAX_COMMITS_PER_DAY) / GameTime.SECONDS_PER_DAY;
         determineNextCommit();
         Debug.Log (string.Format("Developer created with {0} efficiency", commitsPerSecond.ToString()));
-		transform.Find ("Efficiency").GetComponent<Text> ().text = commitsPerSecond.ToString ();
-		MoniesController.Instance.deltaCash -= commitsPerSecond * 100;
+        transform.Find("Efficiency").GetComponent<Text>().text = string.Format("{0} / day", commitsPerDay.ToString());
+        MoniesController.Instance.deltaCash -= commitsPerSecond * 100;
 	}
 
 	// Update is called once per frame
