@@ -6,27 +6,39 @@ using System.Collections;
 public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-	public float efficiency = 0.002f;
+    const float MIN_COMMITS_PER_SECOND = 0.01f;
+    const float MAX_COMMITS_PER_SECOND = 2f;
+    public float commitsPerSecond = 0.5f;
 	public ThingController target = null;
+  float timeSinceLastWork = 0f;
+    float nextCommit = 0f;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
-		efficiency = Random.value * 0.004f;
-		Debug.Log (string.Format("Developer created with {0} efficiency", efficiency.ToString()));
-		transform.Find ("Efficiency").GetComponent<Text> ().text = efficiency.ToString ();
-		MoniesController.Instance.deltaCash -= efficiency * 100;
+		commitsPerSecond = Random.Range(MIN_COMMITS_PER_SECOND, MAX_COMMITS_PER_SECOND);
+        determineNextCommit();
+        Debug.Log (string.Format("Developer created with {0} efficiency", commitsPerSecond.ToString()));
+		transform.Find ("Efficiency").GetComponent<Text> ().text = commitsPerSecond.ToString ();
+		MoniesController.Instance.deltaCash -= commitsPerSecond * 100;
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
 		if (target != null) {
-			if (Random.value <= efficiency) {
+            timeSinceLastWork += Time.deltaTime;
+            if (timeSinceLastWork >= nextCommit) {
 				target.commitWork ();
-			}
+                timeSinceLastWork = 0f;
+                determineNextCommit();
+            }
 		}
 	}
+
+		void determineNextCommit() {
+        nextCommit = Random.Range(0f, 2f) / commitsPerSecond;
+    }
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
@@ -42,4 +54,3 @@ public class Developer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 		}
 	}
 }
-
